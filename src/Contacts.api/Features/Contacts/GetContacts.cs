@@ -18,7 +18,7 @@ public static class GetContacts
 
     public static async Task<IResult> Handler(ContactsDbContext context)
     {
-        var contacts = await context.Contacts.ToListAsync();
+        var contacts = await context.Contacts.AsNoTracking().ToListAsync();
         
         var responses = contacts.Select(c => new Response(c.Id, c.Name, c.CountryCode, c.PhoneNumber));
 

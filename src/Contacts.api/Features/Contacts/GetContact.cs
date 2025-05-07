@@ -1,6 +1,7 @@
 using Contacts.Database;
 using Contacts.Endpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Features.Contacts;
 
@@ -16,9 +17,9 @@ public static class GetContact
         }
     }
 
-    public static async Task<Results<Ok<Response>, NotFound>> Handler(int id, ContactsDbContext context)
+    public static async Task<Results<Ok<Response>, NotFound>> Handler(Guid id, ContactsDbContext context)
     {
-        var contact = await context.Contacts.FindAsync(id);
+        var contact = await context.Contacts.AsNoTracking().FirstOrDefaultAsync(c=> c.Id == id);
         
         if (contact is null)
         {

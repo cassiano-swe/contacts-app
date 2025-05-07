@@ -17,7 +17,7 @@ public static class UpdateContact
         }
     }
 
-    public static async Task<Results<Ok<Response>, NotFound>> Handler(int id, Request request, ContactsDbContext context)
+    public static async Task<Results<Ok<Response>, NotFound>> Handler(Guid id, Request request, ContactsDbContext context)
     {
         var contact = await context.Contacts.FindAsync(id);
         

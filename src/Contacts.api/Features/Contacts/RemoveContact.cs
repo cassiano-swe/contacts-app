@@ -13,7 +13,7 @@ public static class RemoveContact
         }
     }
 
-    public static async Task<IResult> Handler(int id, ContactsDbContext context)
+    public static async Task<IResult> Handler(Guid id, ContactsDbContext context)
     {
         var contact = await context.Contacts.FindAsync(id);
         
