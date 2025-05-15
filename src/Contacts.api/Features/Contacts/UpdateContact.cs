@@ -6,8 +6,8 @@ namespace Contacts.Features.Contacts;
 
 public static class UpdateContact
 {
-    public record Request(string Name, string CountryCode, string PhoneNumber);
-    public record Response(Guid Id, string Name, string CountryCode, string PhoneNumber);
+    public record Request(string Name, string Email, string PhoneNumber);
+    public record Response(Guid Id, Guid UserId, string Name, string Email, string PhoneNumber, DateTime CreatedAt);
 
     public sealed class Endpoint : IEndpoint
     {
@@ -27,11 +27,16 @@ public static class UpdateContact
         }
 
         contact.Name = request.Name;
-        contact.CountryCode = request.CountryCode;
+        contact.Email = request.Email;
         contact.PhoneNumber = request.PhoneNumber;
 
         await context.SaveChangesAsync();
 
-        return TypedResults.Ok(new Response(contact.Id, contact.Name, contact.CountryCode, contact.PhoneNumber));
+        return TypedResults.Ok(new Response(contact.Id
+            , contact.UserId
+            , contact.Name
+            , contact.Email
+            , contact.PhoneNumber
+            , contact.CreatedAt));
     }
 }

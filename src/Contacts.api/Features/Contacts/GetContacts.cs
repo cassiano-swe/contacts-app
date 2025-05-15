@@ -6,7 +6,7 @@ namespace Contacts.Features.Contacts;
 
 public static class GetContacts
 {
-    public record Response(Guid Id, string Name, string CountryCode, string PhoneNumber);
+    public record Response(Guid Id, Guid UserId, string Name, string Email, string PhoneNumber, DateTime CreatedAt);
 
     public sealed class Endpoint : IEndpoint
     {
@@ -20,7 +20,12 @@ public static class GetContacts
     {
         var contacts = await context.Contacts.AsNoTracking().ToListAsync();
         
-        var responses = contacts.Select(c => new Response(c.Id, c.Name, c.CountryCode, c.PhoneNumber));
+        var responses = contacts.Select(contact => new Response(contact.Id
+            , contact.UserId
+            , contact.Name
+            , contact.Email
+            , contact.PhoneNumber
+            , contact.CreatedAt));
 
         return TypedResults.Ok(responses);
     }

@@ -7,7 +7,7 @@ namespace Contacts.Features.Contacts;
 
 public static class GetContact
 {
-    public record Response(Guid Id, string Name, string CountryCode, string PhoneNumber);
+    public record Response(Guid Id, Guid UserId, string Name, string Email, string PhoneNumber, DateTime CreatedAt);
 
     public sealed class Endpoint : IEndpoint
     {
@@ -26,6 +26,11 @@ public static class GetContact
             return TypedResults.NotFound();
         }
 
-        return TypedResults.Ok(new Response(contact.Id, contact.Name, contact.CountryCode, contact.PhoneNumber));
+        return TypedResults.Ok(new Response(contact.Id
+            , contact.UserId
+            , contact.Name
+            , contact.Email
+            , contact.PhoneNumber
+            , contact.CreatedAt));
     }
 }
