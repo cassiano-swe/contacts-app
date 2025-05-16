@@ -1,6 +1,7 @@
 using Contacts.Database;
 using Contacts.Endpoints;
 using Contacts.Entities;
+using Contacts.Extensions;
 
 namespace Contacts.Features.Contacts;
 
@@ -13,11 +14,11 @@ public static class CreateContact
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("contacts", Handler).WithTags("Contacts");
+            app.MapPost("api/contacts", Handler).WithTags("Contacts");
         }
     }
 
-    public static async Task<IResult> Handler(Request request, ContactsDbContext context)
+    public static async Task<IResult> Handler(Request request, ContactsDbContext context, HttpContext httpContext)
     {
         var contact = new Contact { 
             UserId = request.UserId
@@ -31,7 +32,7 @@ public static class CreateContact
 
         await context.SaveChangesAsync();
 
-        return Results.Ok(
+        return Results.Created($"{httpContext.Request.GetBaseUrl()}/api/contacts/{contact.Id}",
             new Response(contact.Id
             , contact.UserId
             , contact.Name

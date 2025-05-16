@@ -13,7 +13,7 @@ public static class UpdateContact
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("contacts/{id}", Handler).WithTags("Contacts");
+            app.MapPut("api/contacts/{id}", Handler).WithTags("Contacts");
         }
     }
 

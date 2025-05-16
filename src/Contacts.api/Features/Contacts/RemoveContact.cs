@@ -9,7 +9,7 @@ public static class RemoveContact
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete("contacts/{id}", Handler).WithTags("Contacts");
+            app.MapDelete("api/contacts/{id}", Handler).WithTags("Contacts");
         }
     }
 

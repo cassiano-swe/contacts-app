@@ -12,7 +12,7 @@ public static class GetContacts
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("contacts", Handler).WithTags("Contacts");
+            app.MapGet("api/contacts", Handler).WithTags("Contacts");
         }
     }
 
