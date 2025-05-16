@@ -1,6 +1,6 @@
 # Contacts app
 
-Contacts app is a simple api example using vertical layer architecture.
+Contacts app is a simple api example using vertical slice architecture.
 
 ## Installation
 
